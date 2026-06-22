@@ -143,7 +143,7 @@ function getGttsLang(voiceId) {
 // ════════════════════════════════════════════════════════════════
 //  SECCIÓN A — LOG SYSTEM
 // ════════════════════════════════════════════════════════════════
-function sendErrorLog(title, description, color = 0xed4245) {
+function sendErrorLog(title, description, color = "#000000") {
   const tag = IS_SHARDED ? ` [Shard ${SHARD_ID}]` : "";
   console.error(`[LOG${tag}] ${title}: ${String(description).slice(0, 300)}`);
   if (!logWebhook) return;
@@ -1513,11 +1513,11 @@ async function handlePrefixCommand(message, config) {
 // ════════════════════════════════════════════════════════════════
 async function handleMention(message, config) {
   await message.reply({
-    embeds: [buildEmbed("👋 ¡Hola! Soy Yul TTS", [
+    embeds: [buildEmbed("👋 hi i'm Yul TTS", [
       `**Prefix:** \`${config.prefix}\``,
       `**Idioma:** \`${config.lang}\``,
       "",
-      `Usa \`${config.prefix}help\` o \`/help\` para ver los comandos.`,
+      `Use \`${config.prefix}help\` o \`/help\`  to view all commands <a:SleepyKitty:1518723956968788121>.`,
     ].join("\n"))],
     components: [getGlobalButtons()],
   });
