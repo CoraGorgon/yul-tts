@@ -284,6 +284,31 @@ function _spawnEdgeTTS(text, voice, outFile) {
  * @param {string} outFile  — Ruta absoluta al archivo MP3 de salida
  * @returns {Promise<void>}
  */
+
+// ============================================================
+//  22.5. SERVIDOR WEB (EXPRESS) PARA DASHBOARD
+// ============================================================
+const express = require('express');
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Sirve los archivos estáticos de la carpeta "public"
+app.use(express.static('public'));
+
+// API para que el HTML obtenga las estadísticas en tiempo real
+app.get('/api/stats', (req, res) => {
+  res.json({
+    guilds: client.guilds.cache.size || 0,
+    queues: guildQueues.size || 0,
+    ping: client.ws.ping || 0,
+    inviteUrl: INVITE_URL,
+    supportUrl: SUPPORT_URL
+  });
+});
+
+app.listen(PORT, () => {
+  console.log(`[WEB] Página web escuchando en el puerto ${PORT}`);
+});
 function _generateGTTS(text, voiceId, outFile) {
   return new Promise((resolve, reject) => {
     const lang   = getGttsLang(voiceId);
