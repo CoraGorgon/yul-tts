@@ -143,14 +143,14 @@ function getGttsLang(voiceId) {
 // ════════════════════════════════════════════════════════════════
 //  SECCIÓN A — LOG SYSTEM
 // ════════════════════════════════════════════════════════════════
-function sendErrorLog(title, description) {
+function sendErrorLog(title, description, color = 0x5865f2) {
   const tag = IS_SHARDED ? ` [Shard ${SHARD_ID}]` : "";
   console.error(`[LOG${tag}] ${title}: ${String(description).slice(0, 300)}`);
   if (!logWebhook) return;
   const embed = new EmbedBuilder()
     .setTitle(`🚨 ${title}${tag}`)
     .setDescription(`\`\`\`\n${String(description).slice(0, 1800)}\n\`\`\``)
-    .setColor("#000000")
+    .setColor(color)
     .setFooter({ text: `Yul TTS • PID:${process.pid}` })
     .setTimestamp();
   logWebhook.send({ embeds: [embed] }).catch(() => {});
@@ -506,7 +506,7 @@ function buildEmbed(title, description, color = 0x5865f2) {
   return new EmbedBuilder()
     .setTitle(title)
     .setDescription(description)
-    .setColor("#000000")
+    .setColor(color)
     .setFooter({ text: `Yul TTS Bot${IS_SHARDED ? ` • Shard ${SHARD_ID}` : ""} • yul help` })
     .setTimestamp();
 }
@@ -1644,12 +1644,7 @@ client.on(Events.MessageCreate, async (message) => {
   try { config = await getGuildConfig(message.guild.id); }
   catch (err) { console.error("[MSG]", err.message); return; }
 
-  const isMentioned =
-    message.mentions.has(client.user) &&
-    !message.content.toLowerCase().startsWith(config.prefix.toLowerCase());
-
-  if (isMentioned) { await handleMention(message, config); return; }
-  await handlePrefixCommand(message, config);
+  
 });
 client.once(Events.ClientReady, async () => {
   console.log(`[BOT] ${client.user.tag} | Guilds: ${client.guilds.cache.size} | Shard: ${SHARD_ID}/${TOTAL_SHARDS} | OS: ${process.platform}`);
@@ -1758,10 +1753,6 @@ process.on("SIGTERM", () => gracefulShutdown("SIGTERM"));
     process.exit(1);
   }
 })();
-
-
-
-
 
 // ════════════════════════════════════════════════════════════════
 //  EXPORTS
