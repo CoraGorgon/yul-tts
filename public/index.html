@@ -12,9 +12,10 @@
             --text-muted: #888888;
             --accent: #ffffff; 
         }
-        body { font-family: 'Inter', -apple-system, sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 0; line-height: 1.6; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 0; line-height: 1.6; scroll-behavior: smooth; }
         
-        nav { padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; }
+        nav { padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; position: sticky; top: 0; background-color: var(--bg); z-index: 1000; }
+        .nav-brand { font-weight: bold; letter-spacing: 2px; }
         .nav-links a { color: var(--text); text-decoration: none; margin-left: 25px; font-size: 0.9rem; letter-spacing: 1px; transition: color 0.3s;}
         .nav-links a:hover { color: var(--text-muted); }
         
@@ -24,16 +25,18 @@
         
         .container { max-width: 1000px; margin: auto; padding: 60px 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
-        .card { padding: 30px; border: 1px solid #333; border-radius: 0; transition: 0.3s; background-color: var(--bg); }
+        .card { padding: 30px; border: 1px solid #333; border-radius: 0; transition: 0.3s; background-color: var(--surface); position: relative; }
         .card:hover { border-color: white; }
         
         .music-section { margin-top: 80px; padding: 50px; border: 1px solid #333; position: relative; background: radial-gradient(circle at top right, #111 0%, #000 100%); }
         .music-credits { position: absolute; top: 15px; right: 20px; font-size: 0.75rem; color: var(--text-muted); letter-spacing: 1px; }
 
-        .btn { padding: 12px 25px; border: 1px solid white; color: white; text-decoration: none; font-weight: bold; display: inline-block; margin: 10px; transition: 0.3s; font-size: 0.9rem; }
+        .btn { padding: 12px 25px; border: 1px solid white; color: white; text-decoration: none; font-weight: bold; display: inline-block; margin: 10px; transition: 0.3s; font-size: 0.9rem; cursor: pointer; }
         .btn-white { background: white; color: black; }
         .btn:hover { background: white; color: black; }
         .btn-white:hover { background: transparent; color: white; }
+
+        .badge { background: #333; color: #fff; padding: 4px 10px; font-size: 0.7rem; font-weight: bold; letter-spacing: 1px; position: absolute; top: 20px; right: 20px; border-radius: 4px; }
 
         /* Estilos para la tabla de comandos */
         table { width: 100%; border-collapse: collapse; margin-top: 30px; }
@@ -49,19 +52,21 @@
 <body>
 
 <nav>
-    <div style="font-weight: bold; letter-spacing: 2px;">YUL ECOSYSTEM</div>
+    <div class="nav-brand">YUL ECOSYSTEM</div>
     <div class="nav-links">
         <a href="#tts-features">TTS BOT</a>
         <a href="#commands">COMANDOS</a>
         <a href="#music-bot">MÚSICA</a>
+        <a href="#futuros">PROYECTOS</a>
     </div>
 </nav>
 
 <header>
-    <h1>YUL</h1>
+    <h1>YUL TTS</h1>
     <p class="subtitle">El estándar de Texto a Voz (TTS) interactivo y calidad musical para tu servidor de Discord.</p>
     <div style="margin-top: 40px;">
-        <a href="#" id="btn-invite" class="btn btn-white">INVITAR YUL TTS</a>
+        <!-- Se agregó el enlace directo por defecto en caso de que la API tarde en cargar -->
+        <a href="https://discord.com/oauth2/authorize?client_id=1518400986606075904&permissions=4298119168&integration_type=0&scope=bot" id="btn-invite" class="btn btn-white">INVITAR YUL TTS</a>
         <a href="https://discord.gg/Ze5TEDCD" id="btn-support" class="btn">SOPORTE</a>
     </div>
 </header>
@@ -122,15 +127,15 @@
         <p style="color: var(--text-muted); margin-bottom: 30px;">Experimenta la calidad musical definitiva para tu comunidad.</p>
         
         <div class="grid" style="margin-top: 0;">
-            <div class="card" style="border-color: #222;">
+            <div class="card" style="border-color: #222; background-color: var(--bg);">
                 <h3 style="font-size: 1.1rem;">MULTI-PLATAFORMA</h3>
                 <p style="color: var(--text-muted); font-size: 0.9rem;">Soporte nativo para YouTube, Spotify y más.</p>
             </div>
-            <div class="card" style="border-color: #222;">
+            <div class="card" style="border-color: #222; background-color: var(--bg);">
                 <h3 style="font-size: 1.1rem;">PANEL DINÁMICO</h3>
                 <p style="color: var(--text-muted); font-size: 0.9rem;">Control total con interfaz actualizada al instante dentro de Discord.</p>
             </div>
-            <div class="card" style="border-color: #222;">
+            <div class="card" style="border-color: #222; background-color: var(--bg);">
                 <h3 style="font-size: 1.1rem;">AUTO-QUEUE</h3>
                 <p style="color: var(--text-muted); font-size: 0.9rem;">Inteligencia artificial para mantener la música sonando 24/7.</p>
             </div>
@@ -143,9 +148,40 @@
         </div>
     </div>
 
-    <div style="margin-top: 100px; text-align: center; border: 1px solid #333; padding: 50px;">
+    <div id="futuros" style="margin-top: 100px;">
+        <h2 style="font-weight: 300; letter-spacing: 1px; text-align: center;">FUTUROS PROYECTOS</h2>
+        <p style="color: var(--text-muted); text-align: center; margin-bottom: 40px;">El ecosistema Yul está en constante evolución. Esto es lo que viene.</p>
+        
+        <div class="grid">
+            <div class="card">
+                <span class="badge">PRÓXIMAMENTE</span>
+                <h3>YUL ECONOMY</h3>
+                <p style="color: var(--text-muted);">Revolucionando la economía en Discord. Invierte en <strong>propiedades</strong>, gestiona negocios y cría o colecciona <strong>mascotas</strong> con sistemas dinámicos.</p>
+            </div>
+            
+            <div class="card">
+                <span class="badge">PRÓXIMAMENTE</span>
+                <h3>YUL ADMIN</h3>
+                <p style="color: var(--text-muted);">El control absoluto de tu servidor. Auditoría avanzada, filtros de seguridad automáticos y moderación eficiente en una sola herramienta.</p>
+            </div>
+
+            <div class="card">
+                <span class="badge">PRÓXIMAMENTE</span>
+                <h3>YUL AUTOROLES</h3>
+                <p style="color: var(--text-muted);"><strong>Organización y utilidad.</strong> Genera imágenes personalizadas de bienvenida, configura paneles interactivos y actualiza contadores automáticos.</p>
+            </div>
+
+            <div class="card">
+                <span class="badge">PRÓXIMAMENTE</span>
+                <h3>YUL NEKO</h3>
+                <p style="color: var(--text-muted);"><strong>Entretenimiento puro.</strong> Comandos de rol (abrazar, golpear), matrimonios virtuales y memes para mantener tu chat general siempre activo.</p>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 100px; text-align: center; border: 1px solid #333; padding: 50px; background-color: var(--surface);">
         <h3 style="letter-spacing: 1px;">APOYA EL PROYECTO</h3>
-        <p style="color: var(--text-muted); margin-bottom: 30px;">Las donaciones nos permiten mantener las bases de datos y el hosting activo 24/7.</p>
+        <p style="color: var(--text-muted); margin-bottom: 30px;">Las donaciones nos permiten mantener las bases de datos y el hosting activo 24/7 para todo el ecosistema.</p>
         <form action="https://www.paypal.com/donate" method="post" target="_top">
             <input type="hidden" name="business" value="sayukllups@gmail.com" />
             <button type="submit" class="btn btn-white">DONAR VÍA PAYPAL</button>
@@ -159,7 +195,6 @@
 </footer>
 
 <script>
-    // Lógica para consumir la API de Express (Asegúrate de tener el código del servidor web integrado)
     async function fetchStats() {
         try {
             const response = await fetch('/api/stats');
