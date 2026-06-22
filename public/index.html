@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YUL | Ecosistema TTS & Música</title>
+    <style>
+        :root { 
+            --bg: #000000; 
+            --surface: #111111; 
+            --text: #ffffff; 
+            --text-muted: #888888;
+            --accent: #ffffff; 
+        }
+        body { font-family: 'Inter', -apple-system, sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 0; line-height: 1.6; }
+        
+        nav { padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; }
+        .nav-links a { color: var(--text); text-decoration: none; margin-left: 25px; font-size: 0.9rem; letter-spacing: 1px; transition: color 0.3s;}
+        .nav-links a:hover { color: var(--text-muted); }
+        
+        header { padding: 100px 20px; text-align: center; }
+        h1 { font-size: 6rem; font-weight: 800; margin: 0; letter-spacing: -4px; }
+        .subtitle { font-size: 1.2rem; color: var(--text-muted); margin-top: 10px; max-width: 600px; margin-left: auto; margin-right: auto;}
+        
+        .container { max-width: 1000px; margin: auto; padding: 60px 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
+        .card { padding: 30px; border: 1px solid #333; border-radius: 0; transition: 0.3s; background-color: var(--bg); }
+        .card:hover { border-color: white; }
+        
+        .music-section { margin-top: 80px; padding: 50px; border: 1px solid #333; position: relative; background: radial-gradient(circle at top right, #111 0%, #000 100%); }
+        .music-credits { position: absolute; top: 15px; right: 20px; font-size: 0.75rem; color: var(--text-muted); letter-spacing: 1px; }
+
+        .btn { padding: 12px 25px; border: 1px solid white; color: white; text-decoration: none; font-weight: bold; display: inline-block; margin: 10px; transition: 0.3s; font-size: 0.9rem; }
+        .btn-white { background: white; color: black; }
+        .btn:hover { background: white; color: black; }
+        .btn-white:hover { background: transparent; color: white; }
+
+        /* Estilos para la tabla de comandos */
+        table { width: 100%; border-collapse: collapse; margin-top: 30px; }
+        th, td { padding: 16px; border-bottom: 1px solid #333; text-align: left; }
+        th { color: var(--text-muted); font-size: 0.85rem; letter-spacing: 1px; font-weight: normal; }
+        td { font-size: 0.95rem; }
+        .cmd { font-family: monospace; color: var(--accent); letter-spacing: 0.5px; }
+        tr:hover { background-color: #0a0a0a; }
+
+        footer { padding: 60px; text-align: center; border-top: 1px solid #333; color: var(--text-muted); font-size: 0.8rem; margin-top: 40px;}
+    </style>
+</head>
+<body>
+
+<nav>
+    <div style="font-weight: bold; letter-spacing: 2px;">YUL ECOSYSTEM</div>
+    <div class="nav-links">
+        <a href="#tts-features">TTS BOT</a>
+        <a href="#commands">COMANDOS</a>
+        <a href="#music-bot">MÚSICA</a>
+    </div>
+</nav>
+
+<header>
+    <h1>YUL</h1>
+    <p class="subtitle">El estándar de Texto a Voz (TTS) interactivo y calidad musical para tu servidor de Discord.</p>
+    <div style="margin-top: 40px;">
+        <a href="#" id="btn-invite" class="btn btn-white">INVITAR YUL TTS</a>
+        <a href="https://discord.gg/Ze5TEDCD" id="btn-support" class="btn">SOPORTE</a>
+    </div>
+</header>
+
+<div class="container">
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 50px; margin-bottom: 80px;">
+        <div style="text-align: center;"><h3><span id="stat-guilds">--</span></h3><p style="color:var(--text-muted)">SERVIDORES</p></div>
+        <div style="text-align: center;"><h3><span id="stat-queues">--</span></h3><p style="color:var(--text-muted)">COLAS ACTIVAS</p></div>
+        <div style="text-align: center;"><h3><span id="stat-ping">--</span></h3><p style="color:var(--text-muted)">LATENCIA</p></div>
+    </div>
+
+    <h2 id="tts-features" style="font-weight: 300; letter-spacing: 1px;">SISTEMA TTS PRO</h2>
+    <div class="grid">
+        <div class="card">
+            <h3>VOCES NEURALES</h3>
+            <p style="color: var(--text-muted);">Múltiples idiomas y acentos impulsados por inteligencia artificial de alta calidad.</p>
+        </div>
+        <div class="card">
+            <h3>SISTEMA DE CACHÉ</h3>
+            <p style="color: var(--text-muted);">Generación ultrarrápida. Los audios se guardan temporalmente para evitar demoras y cargas innecesarias.</p>
+        </div>
+        <div class="card">
+            <h3>ANTI-SPAM INTELIGENTE</h3>
+            <p style="color: var(--text-muted);">Control de cooldowns por servidor y usuario para mantener tu chat de voz limpio y ordenado.</p>
+        </div>
+    </div>
+
+    <div id="commands" style="margin-top: 100px;">
+        <h2 style="font-weight: 300; letter-spacing: 1px;">COMANDOS DEL BOT</h2>
+        <p style="color: var(--text-muted);">Controla a Yul TTS fácilmente usando comandos de barra (/) o el prefijo predeterminado.</p>
+        
+        <div style="overflow-x: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>COMANDO</th>
+                        <th>DESCRIPCIÓN</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="cmd">/tts &lt;texto&gt;</td><td style="color: var(--text-muted);">Convierte tu texto a voz y lo añade a la cola del canal.</td></tr>
+                    <tr><td class="cmd">/voices</td><td style="color: var(--text-muted);">Muestra la lista de voces e idiomas disponibles.</td></tr>
+                    <tr><td class="cmd">/setvoice &lt;id&gt;</td><td style="color: var(--text-muted);">Configura la voz predeterminada para todo tu servidor.</td></tr>
+                    <tr><td class="cmd">/queue</td><td style="color: var(--text-muted);">Muestra la cola de mensajes TTS pendientes por reproducir.</td></tr>
+                    <tr><td class="cmd">/skip</td><td style="color: var(--text-muted);">Salta el mensaje de voz actual.</td></tr>
+                    <tr><td class="cmd">/stop</td><td style="color: var(--text-muted);">Detiene la reproducción y vacía toda la cola activa.</td></tr>
+                    <tr><td class="cmd">/leave</td><td style="color: var(--text-muted);">Desconecta al bot de tu canal de voz.</td></tr>
+                    <tr><td class="cmd">/stats</td><td style="color: var(--text-muted);">Muestra las estadísticas globales de uso de Yul TTS.</td></tr>
+                    <tr><td class="cmd">/health</td><td style="color: var(--text-muted);">Verifica el estado del sistema, RAM y base de datos en tiempo real.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="music-bot" class="music-section">
+        <span class="music-credits">CREADO POR GLACEYT</span>
+        <h2 style="font-weight: 300; margin-top: 0; letter-spacing: 1px;">YUL MÚSICA</h2>
+        <p style="color: var(--text-muted); margin-bottom: 30px;">Experimenta la calidad musical definitiva para tu comunidad.</p>
+        
+        <div class="grid" style="margin-top: 0;">
+            <div class="card" style="border-color: #222;">
+                <h3 style="font-size: 1.1rem;">MULTI-PLATAFORMA</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Soporte nativo para YouTube, Spotify y más.</p>
+            </div>
+            <div class="card" style="border-color: #222;">
+                <h3 style="font-size: 1.1rem;">PANEL DINÁMICO</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Control total con interfaz actualizada al instante dentro de Discord.</p>
+            </div>
+            <div class="card" style="border-color: #222;">
+                <h3 style="font-size: 1.1rem;">AUTO-QUEUE</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Inteligencia artificial para mantener la música sonando 24/7.</p>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 50px;">
+            <a href="https://discord.com/oauth2/authorize?client_id=1517975340549410816&permissions=281474980153408&integration_type=0&scope=bot" target="_blank" class="btn btn-white">
+                INVITAR YUL MÚSICA
+            </a>
+        </div>
+    </div>
+
+    <div style="margin-top: 100px; text-align: center; border: 1px solid #333; padding: 50px;">
+        <h3 style="letter-spacing: 1px;">APOYA EL PROYECTO</h3>
+        <p style="color: var(--text-muted); margin-bottom: 30px;">Las donaciones nos permiten mantener las bases de datos y el hosting activo 24/7.</p>
+        <form action="https://www.paypal.com/donate" method="post" target="_top">
+            <input type="hidden" name="business" value="sayukllups@gmail.com" />
+            <button type="submit" class="btn btn-white">DONAR VÍA PAYPAL</button>
+        </form>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 YUL ECOSYSTEM</p>
+    <p>SOFTWARE BAJO LICENCIA MIT | DISEÑADO PARA DISCORD</p>
+</footer>
+
+<script>
+    // Lógica para consumir la API de Express (Asegúrate de tener el código del servidor web integrado)
+    async function fetchStats() {
+        try {
+            const response = await fetch('/api/stats');
+            const data = await response.json();
+            
+            document.getElementById('stat-guilds').innerText = data.guilds || "0";
+            document.getElementById('stat-queues').innerText = data.queues || "0";
+            document.getElementById('stat-ping').innerText = (data.ping || "0") + " ms";
+            
+            if(data.inviteUrl) document.getElementById('btn-invite').href = data.inviteUrl;
+            if(data.supportUrl) document.getElementById('btn-support').href = data.supportUrl;
+        } catch (error) {
+            console.error("Error obteniendo estadísticas:", error);
+            document.getElementById('stat-guilds').innerText = "--";
+            document.getElementById('stat-queues').innerText = "--";
+            document.getElementById('stat-ping').innerText = "--";
+        }
+    }
+
+    fetchStats();
+    setInterval(fetchStats, 15000);
+</script>
+</body>
+</html>
