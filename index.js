@@ -143,7 +143,7 @@ function getGttsLang(voiceId) {
 // ════════════════════════════════════════════════════════════════
 //  SECCIÓN A — LOG SYSTEM
 // ════════════════════════════════════════════════════════════════
-function sendErrorLog(title, description, color = "#000000") {
+function sendErrorLog(title, description, color = "0e0b0b") {
   const tag = IS_SHARDED ? ` [Shard ${SHARD_ID}]` : "";
   console.error(`[LOG${tag}] ${title}: ${String(description).slice(0, 300)}`);
   if (!logWebhook) return;
