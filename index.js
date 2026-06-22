@@ -1634,6 +1634,138 @@ process.on("SIGTERM", () => gracefulShutdown("SIGTERM"));
   }
 })();
 
+
+// owner mensasage
+
+client.on('messageCreate', async (message) => {
+    // 1. Definir tu ID de usuario (cámbialo por el tuyo)
+    const OWNER_ID = '482441540346839040'; 
+    const prefix = '!!';
+
+    // 2. Validaciones básicas
+    if (message.author.bot || !message.content.startsWith(prefix)) return;
+
+    const args = message.content.slice(prefix.length).trim().split(/ +/);
+    const command = args.shift().toLowerCase();
+
+
+
+    
+    // 3. Lógica del comando !say
+    if (command === 'say') {
+        // Verifica si eres tú quien ejecuta el comando
+        if (message.author.id !== OWNER_ID) {
+            return message.reply("❌ No tienes permiso para usar este comando.");
+        }
+
+        // Obtiene el texto que quieres que el bot diga
+        const textToSay = args.join(' ');
+        
+        if (!textToSay) {
+            return message.reply("⚠️ Debes escribir algo para que yo lo diga.");
+        }
+
+        // El bot envía el mensaje y borra el tuyo (opcional)
+        try {
+            await message.channel.send(textToSay);
+            // message.delete().catch(err => console.error("No pude borrar el mensaje original"));
+        } catch (error) {
+            console.error(error);
+            message.reply("Hubo un error al intentar enviar el mensaje.");
+        }
+    }
+
+    if (command === 'archivo') {
+
+        if (message.author.id !== OWNER_ID) {
+            return message.reply("❌ No tienes permiso para usar este comando.");
+        }
+        if (message.attachments.size === 0) {
+        return message.reply("Por favor, adjunta un archivo junto al comando.");
+    }
+
+    // Obtenemos el primer archivo adjunto
+    const attachment = message.attachments.first();
+
+    // Reenviamos el archivo como un nuevo Attachment
+    message.channel.send({
+        files: [attachment]
+    }).catch(err => {
+        message.reply("Hubo un error al reenviar el archivo.");
+        console.error(err);
+    });
+    
+    message.delete().catch(() => {}); // Opcional: borra el comando original
+    }
+
+    if (command === 'embed') {
+        // Verifica si eres tú quien ejecuta el comando
+        if (message.author.id !== OWNER_ID) {
+            return message.reply("❌ No tienes permiso para usar este comando.");
+        }
+     
+
+const args = message.content.slice(6).trim();
+    // Separamos descripción e imagen usando 'image:'
+    const parts = args.split('image:');
+    const descripcion = parts[0].trim().replace(/\\n/g, '\n');
+    const imagenUrl = parts[1] ? parts[1].trim() : null;
+
+    const embed = new EmbedBuilder()
+        .setColor('#000000')
+        .setTitle('『 <:miwa:1518385029653205103> 』 Yul')
+        .setDescription(descripcion)
+        .setThumbnail(message.client.user.displayAvatarURL())
+        .setTimestamp();
+
+    if (imagenUrl && imagenUrl.startsWith('http')) embed.setImage(imagenUrl);
+
+    message.channel.send({ embeds: [embed] });
+    message.delete().catch(() => {});
+    }
+
+     if (command === 'embededit') {
+        // Verifica si eres tú quien ejecuta el comando
+        if (message.author.id !== OWNER_ID) {
+            return message.reply("❌ No tienes permiso para usar este comando.");
+        }
+     
+
+if (!message.reference) return message.reply("Responde al embed que quieres editar.");
+    
+    const replyMessage = await message.channel.messages.fetch(message.reference.messageId);
+    if (!replyMessage.embeds[0]) return message.reply("Ese mensaje no tiene un embed.");
+
+    const args = message.content.slice(10).trim();
+    const embed = EmbedBuilder.from(replyMessage.embeds[0]);
+
+    // Separamos: !embededit nuevo texto imagen:opcion
+    const parts = args.split('imagen:');
+    if (parts[0].trim()) embed.setDescription(parts[0].trim().replace(/\\n/g, '\n'));
+
+    // Lógica de imagen
+    const imgOp = parts[1] ? parts[1].trim() : null;
+    if (imgOp) {
+        if (imgOp === 'false') {
+            embed.setImage(null);
+        } else if (imgOp === 'true') {
+            // Mantiene la que tiene
+        } else if (imgOp.startsWith('change:')) {
+            const newUrl = imgOp.split('change:')[1];
+            if (newUrl.startsWith('http')) embed.setImage(newUrl);
+        }
+    }
+
+    await replyMessage.edit({ embeds: [embed] });
+    message.delete().catch(() => {});
+    }
+});
+
+
+
+
+// owner mensasage
+
 // ════════════════════════════════════════════════════════════════
 //  EXPORTS
 // ════════════════════════════════════════════════════════════════
