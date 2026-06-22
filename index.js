@@ -143,14 +143,14 @@ function getGttsLang(voiceId) {
 // ════════════════════════════════════════════════════════════════
 //  SECCIÓN A — LOG SYSTEM
 // ════════════════════════════════════════════════════════════════
-function sendErrorLog(title, description, color = "0e0b0b") {
+function sendErrorLog(title, description) {
   const tag = IS_SHARDED ? ` [Shard ${SHARD_ID}]` : "";
   console.error(`[LOG${tag}] ${title}: ${String(description).slice(0, 300)}`);
   if (!logWebhook) return;
   const embed = new EmbedBuilder()
     .setTitle(`🚨 ${title}${tag}`)
     .setDescription(`\`\`\`\n${String(description).slice(0, 1800)}\n\`\`\``)
-    .setColor(color)
+    .setColor("#000000")
     .setFooter({ text: `Yul TTS • PID:${process.pid}` })
     .setTimestamp();
   logWebhook.send({ embeds: [embed] }).catch(() => {});
@@ -506,7 +506,7 @@ function buildEmbed(title, description, color = 0x5865f2) {
   return new EmbedBuilder()
     .setTitle(title)
     .setDescription(description)
-    .setColor(color)
+    .setColor("#000000")
     .setFooter({ text: `Yul TTS Bot${IS_SHARDED ? ` • Shard ${SHARD_ID}` : ""} • yul help` })
     .setTimestamp();
 }
